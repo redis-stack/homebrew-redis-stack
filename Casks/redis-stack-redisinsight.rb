@@ -1,4 +1,4 @@
-cask "redisinsight" do
+cask "redis-stack-redisinsight" do
   version "2.0.4-preview"
   name "RedisInsight"
   desc "Placeholder"

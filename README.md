@@ -8,13 +8,8 @@ Enable the repostiory:
 brew tap redislabs/redis-stack
 ```
 
-```
-brew install PACKAGE_NAME
-```
-
-Install a cask (i.e RedisInsight) from the repository:
+Install redis-stack
 
 ```
-brew install --cask redisinsight
+brew install --cask redis-stack
 ```
-
