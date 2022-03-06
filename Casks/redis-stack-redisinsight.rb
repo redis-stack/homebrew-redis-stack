@@ -8,4 +8,16 @@ cask "redis-stack-redisinsight" do
   sha256 "f82e6c210673a2439e42429342b9b35cb5bfdc8b00a88a45e0f4bc2b34b331e3"
 
   app "RedisInsight-preview.app"
+
+  uninstall_preflight do
+    File.delete('/usr/local/bin/redisinsight')
+  end
+
+  postflight do
+    File.write("/usr/local/bin/redisinsight", "w") { |f|
+      f.write("#!/bin/sh")
+      f.write("open /Applications/RedisInsight-preview")
+    }
+    FileUtils.chmod(0755, "/usr/local/bin/redisinsight")
+  end
 end

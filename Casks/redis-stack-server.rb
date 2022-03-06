@@ -10,7 +10,7 @@ cask "redis-stack-server" do
 
   depends_on formula: "openssl@1.1"
 
-  binaries = ['redis-cli', 'redis-benchmark', 'redis-check-aof', 'redis-check-rdb', 'redis-sentinel', 'redis-server']
+  binaries = ['redis-cli', 'redis-benchmark', 'redis-check-aof', 'redis-check-rdb', 'redis-sentinel', 'redis-server', 'redis-stack-server']
 
   uninstall_preflight do
     binaries.each {|item|
