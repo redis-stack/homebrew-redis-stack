@@ -14,10 +14,6 @@ cask "redis-stack-redisinsight" do
   end
 
   postflight do
-    File.write("/usr/local/bin/redisinsight", "w") { |f|
-      f.write("#!/bin/sh")
-      f.write("open /Applications/RedisInsight-preview")
-    }
-    FileUtils.chmod(0755, "/usr/local/bin/redisinsight")
+    File.symlink("/Applications/RedisInsight-preview.app/Contents/MacOS/RedisInsight-preview", "/usr/local/bin/redisinsight")
   end
 end
