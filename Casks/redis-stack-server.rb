@@ -10,17 +10,16 @@ cask "redis-stack-server" do
     if is_x86 != nil 
       platform = 'x86_64'
       osnick = 'catalina'
-      sslversion = "1.1"
     else
       platform = 'arm64'
       osnick = 'monterey'
-      sslversion = "3"
     end
   end
 
   url "https://redismodules.s3.amazonaws.com/redis-stack/snapshots/redis-stack-server-#{version}.#{osnick}.#{platform}.zip"
 
-  depends_on formula: "openssl@#{sslversion}"
+  depends_on formula: "openssl@3"
+  depends_on formula: "libomp"
 
   binaries = ['redis-cli', 'redis-benchmark', 'redis-check-aof', 'redis-check-rdb', 'redis-sentinel', 'redis-server', 'redis-stack-server']
 
@@ -42,7 +41,7 @@ cask "redis-stack-server" do
     # unlink libraries
     caskbase = "#{caskroom_path}/#{version}"
     Dir["#{caskbase}/lib/*.so"].each { |item|
-      lib = File.basename(lib)
+      lib = File.basename(item)
       destlib = "#{basepath}/lib/#{lib}"
       File.delete(destlib)
     }
