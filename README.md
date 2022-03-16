@@ -5,7 +5,7 @@
 Enable the repostiory:
 
 ```
-brew tap redislabs/redis-stack
+brew tap redis-stack/redis-stack
 ```
 
 Install redis-stack
