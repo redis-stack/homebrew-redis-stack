@@ -1,7 +1,8 @@
 cask "redis-stack" do
 
   homepage "https://redis.io"
-  desc "Placeholder description"
+  name "Redis Stack"
+  desc "Redis server with additional database capabilities and the visualisation tool RedisInsight."
   version "1.0.1"
 
   # FIXME PLACEHOLDER

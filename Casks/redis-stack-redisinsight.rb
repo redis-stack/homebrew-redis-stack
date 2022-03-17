@@ -1,7 +1,7 @@
 cask "redis-stack-redisinsight" do
   version "22128"
   name "RedisInsight"
-  desc "Placeholder"
+  desc "A visualization tool for Redis."
   homepage "https://redis.com/redis-enterprise/redis-insight/"
 
   # platform = RUBY_PLATFORM.split('-')[0].split('.')[1]

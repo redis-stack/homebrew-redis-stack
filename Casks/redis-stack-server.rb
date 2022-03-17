@@ -1,7 +1,7 @@
 cask "redis-stack-server" do
 
   homepage "https://redis.io"
-  desc "Placeholder description"
+  desc "Redis Stack Server install a Redis server with additional database capabilities"
   version "99.99.99-1"
 
   baseos = 'darwin'
