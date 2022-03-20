@@ -2,12 +2,12 @@ cask "redis-stack-server" do
 
   homepage "https://redis.io"
   desc "Redis Stack Server install a Redis server with additional database capabilities"
-  version "99.99.99-1"
+  version "6.2.0-1"
 
   baseos = 'darwin'
   if RUBY_PLATFORM.index('darwin') != nil
     is_x86 = RUBY_PLATFORM.index("x86")
-    if is_x86 != nil 
+    if is_x86 != nil
       platform = 'x86_64'
       osnick = 'catalina'
     else

@@ -1,5 +1,5 @@
 cask "redis-stack-redisinsight" do
-  version "22128"
+  version "25693-1"
   name "RedisInsight"
   desc "A graphical tool for visualizing data and managing Redis databases"
   homepage "https://redis.com/redis-enterprise/redis-insight/"
@@ -9,7 +9,7 @@ cask "redis-stack-redisinsight" do
   baseos = 'darwin'
   if RUBY_PLATFORM.index('darwin') != nil
     is_x86 = RUBY_PLATFORM.index("x86")
-    if is_x86 != nil 
+    if is_x86 != nil
       platform = 'x64'
     else
       platform = 'arm64'
