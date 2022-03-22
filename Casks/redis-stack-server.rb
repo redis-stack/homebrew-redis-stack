@@ -16,7 +16,7 @@ cask "redis-stack-server" do
     end
   end
 
-  url "https://redismodules.s3.amazonaws.com/redis-stack/snapshots/redis-stack-server-#{version}.#{osnick}.#{platform}.zip"
+  url "https://redismodules.s3.amazonaws.com/redis-stack/redis-stack-server-#{version}.#{osnick}.#{platform}.zip"
 
   depends_on formula: "openssl@3"
   depends_on formula: "libomp"
