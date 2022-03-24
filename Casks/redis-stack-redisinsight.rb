@@ -16,7 +16,7 @@ cask "redis-stack-redisinsight" do
     end
   end
 
-  url "https://s3.amazonaws.com/redisinsight.test/public/rs-ri-builds/#{version}/redisstack/RedisInsight-preview-app-#{baseos}.#{platform}.tar.gz"
+  url "https://download-test.redisinsight.redis.com/rs-ri-builds/#{version}/redisstack/RedisInsight-v2-app-#{baseos}.#{platform}.tar.gz"
   app "RedisInsight-preview.app"
 
   uninstall_preflight do
@@ -37,7 +37,7 @@ cask "redis-stack-redisinsight" do
     dest = "#{basepath}/redisinsight"
     File.open(dest, 'w+') { |f|
       f.write("#!/bin/sh\n\n")
-      f.write("open /Applications/RedisInsight-preview.app\n")
+      f.write("open /Applications/RedisInsight-v2.app\n")
     }
     FileUtils.chmod(0755, dest)
   end
