@@ -17,7 +17,7 @@ cask "redis-stack-redisinsight" do
   end
 
   url "https://download-test.redisinsight.redis.com/rs-ri-builds/#{version}/redisstack/RedisInsight-v2-app-#{baseos}.#{platform}.tar.gz"
-  app "RedisInsight-preview.app"
+  app "RedisInsight-v2.app"
 
   uninstall_preflight do
     if RUBY_PLATFORM.index('x86') != nil
