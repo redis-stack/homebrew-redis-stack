@@ -16,7 +16,7 @@ cask "redis-stack-redisinsight" do
     end
   end
 
-  url "https://download-test.redisinsight.redis.com/rs-ri-builds/#{version}/redisstack/RedisInsight-v2-app-#{baseos}.#{platform}.tar.gz"
+  url "https://s3.amazonaws.com/redisinsight.download/public/releases/#{version}/redisstack/RedisInsight-v2-app-#{baseos}.#{platform}.tar.gz"
   app "RedisInsight-v2.app"
 
   uninstall_preflight do
