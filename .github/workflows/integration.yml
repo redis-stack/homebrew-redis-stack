@@ -18,4 +18,5 @@ jobs:
       - uses: actions/checkout@v3
       - name: test in the installations
         run: |
-          brew install --cask Casks/redis-stack.rb
+          brew install --cask Casks/redis-stack-server.rb
+          brew install --cask Casks/redis-stack-redisinsight.rb
