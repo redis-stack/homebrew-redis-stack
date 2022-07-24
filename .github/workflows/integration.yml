@@ -16,6 +16,6 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - name: test in the installations:
+      - name: test in the installations
         run: |
           brew install --cask Casks/redis-stack.rb
