@@ -1,0 +1,23 @@
+e--
+
+on:
+  push:
+    paths-ignore:
+      '*.md'
+    branches:
+      - master
+      - '[0-9].[0-9]'
+  pull_request:
+    branches:
+      - master
+
+jobs:
+
+  validate:
+    name: Validate installation
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: test in the installations:
+        run: |
+          brew install --cask Casks/redis-stack.rb
