@@ -1,3 +1,5 @@
+name: CI
+
 on:
   push:
     paths-ignore:
@@ -22,4 +24,4 @@ jobs:
           brew install --cask Casks/redis-stack-redisinsight.rb
       - name: try to redis-stack
         run:
-          /opt/redis-stack/bin/redis-stack-server -h|grep "Redis is starting"
+          /usr/local/bin/redis-stack-server -h|grep "Redis is starting"
