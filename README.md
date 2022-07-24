@@ -1,3 +1,5 @@
+[![.github/workflows/integration.yml](https://github.com/redis-stack/homebrew-redis-stack/actions/workflows/integration.yml/badge.svg)](https://github.com/redis-stack/homebrew-redis-stack/actions/workflows/integration.yml)
+
 # redis-stack homebrew
 
 ## Installation
