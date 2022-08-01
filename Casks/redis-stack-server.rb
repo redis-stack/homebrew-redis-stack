@@ -24,10 +24,14 @@ cask "redis-stack-server" do
   binaries = ['redis-cli', 'redis-benchmark', 'redis-check-aof', 'redis-check-rdb', 'redis-sentinel', 'redis-server', 'redis-stack-server']
 
   uninstall_postflight do
-    if RUBY_PLATFORM.index('x86') != nil
-      basepath = '/usr/local'
+    if ENV["HOMEBREW_PREFIX"] != nil
+      basepath = ENV["HOMEBREW_PREFIX"]
     else
-      basepath = '/opt/homebrew'
+      if RUBY_PLATFORM.index('x86') != nil
+        basepath = '/usr/local'
+      else
+        basepath = '/opt/homebrew'
+      end
     end
     binaries.each { |item|
       dest = "#{basepath}/bin/#{item}"
@@ -49,10 +53,14 @@ cask "redis-stack-server" do
   end
 
   postflight do
-    if RUBY_PLATFORM.index('x86') != nil
-      basepath = '/usr/local'
+    if ENV["HOMEBREW_PREFIX"] != nil
+      basepath = ENV["HOMEBREW_PREFIX"]
     else
-      basepath = '/opt/homebrew'
+      if RUBY_PLATFORM.index('x86') != nil
+        basepath = '/usr/local'
+      else
+        basepath = '/opt/homebrew'
+      end
     end
 
     confdir = "#{basepath}/etc"

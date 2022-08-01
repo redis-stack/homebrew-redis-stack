@@ -20,20 +20,29 @@ cask "redis-stack-redisinsight" do
   app "RedisInsight-v2.app"
 
   uninstall_preflight do
-    if RUBY_PLATFORM.index('x86') != nil
-      basepath = '/usr/local/bin'
+    if ENV["HOMEBREW_PREFIX"] != nil
+      basepath = ENV["HOMEBREW_PREFIX"]
     else
-      basepath = '/opt/homebrew/bin'
+      if RUBY_PLATFORM.index('x86') != nil
+        basepath = '/usr/local/bin'
+      else
+        basepath = '/opt/homebrew/bin'
+      end
     end
     File.delete("#{basepath}/redisinsight")
   end
 
   postflight do
-    if RUBY_PLATFORM.index('x86') != nil
-      basepath = '/usr/local/bin'
+    if ENV["HOMEBREW_PREFIX"] != nil
+      basepath = ENV["HOMEBREW_PREFIX"]
     else
-      basepath = '/opt/homebrew/bin'
+      if RUBY_PLATFORM.index('x86') != nil
+        basepath = '/usr/local/bin'
+      else
+        basepath = '/opt/homebrew/bin'
+      end
     end
+
     dest = "#{basepath}/redisinsight"
     File.open(dest, 'w+') { |f|
       f.write("#!/bin/sh\n\n")
