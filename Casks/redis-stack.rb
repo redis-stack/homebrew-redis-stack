@@ -3,7 +3,7 @@ cask "redis-stack" do
   homepage "https://redis.io"
   name "Redis Stack"
   desc "Redis server with additional database capabilities and the visualisation tool RedisInsight."
-  version "6.2.6-8"
+  version "6.2.6-9"
 
   # FIXME PLACEHOLDER
   url "https://redismodules.s3.amazonaws.com/redis-stack/.donotremove"
