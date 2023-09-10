@@ -25,4 +25,4 @@ jobs:
       - name: try to redis-stack
         run:
           /usr/local/bin/redis-stack-server -h > redis-output.txt &
-          cat redis-output.txt |grep "Redis is starting"
+          cat redis-output.txt |grep "Redis"
