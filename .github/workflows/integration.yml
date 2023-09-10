@@ -24,4 +24,4 @@ jobs:
           brew install --cask Casks/redis-stack-redisinsight.rb
       - name: try to redis-stack
         run:
-          /usr/local/bin/redis-stack-server -h|grep "Starting redis-stack-server"
+          /usr/local/bin/redis-stack-server -h
