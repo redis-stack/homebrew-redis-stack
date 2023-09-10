@@ -24,5 +24,5 @@ jobs:
           brew install --cask Casks/redis-stack-redisinsight.rb
       - name: try to redis-stack
         run:
-          set -e
           /usr/local/bin/redis-stack-server -h &
+          redis-cli ping
