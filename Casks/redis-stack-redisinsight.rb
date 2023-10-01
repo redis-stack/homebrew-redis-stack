@@ -1,5 +1,5 @@
 cask "redis-stack-redisinsight" do
-  version "2.32.0"
+  version "2.34.0"
   name "RedisInsight"
   desc "A graphical tool for visualizing data and managing Redis databases"
   homepage "https://redis.com/redis-enterprise/redis-insight/"
