@@ -29,7 +29,7 @@ jobs:
         run:
           redis-cli ping
 
-   m1:
+  m1:
     name: Validate arm64
     runs-on: macos-latest-large
     steps:
