@@ -2,7 +2,7 @@ cask "redis-stack-server" do
 
   homepage "https://redis.io"
   desc "Redis Stack Server install a Redis server with additional database capabilities"
-  version "7.2.0-v5"
+  version "7.2.0-v6"
 
   baseos = 'darwin'
   if RUBY_PLATFORM.index('darwin') != nil
