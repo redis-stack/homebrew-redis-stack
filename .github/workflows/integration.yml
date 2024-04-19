@@ -31,7 +31,7 @@ jobs:
 
   m1:
     name: Validate arm64
-    runs-on: macos-latest
+    runs-on: macos-14
     steps:
       - uses: actions/checkout@v3
       - name: test in the installations
