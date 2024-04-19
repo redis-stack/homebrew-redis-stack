@@ -15,7 +15,7 @@ jobs:
 
   intel:
     name: Validate intel
-    runs-on: macos-latest # TODO: investigate why latest does not represent macos 14
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - name: test in the installations
@@ -31,7 +31,7 @@ jobs:
 
   m1:
     name: Validate arm64
-    runs-on: macos-14
+    runs-on: macos-14 # TODO: investigate why latest does not represent macos 14
     steps:
       - uses: actions/checkout@v3
       - name: test in the installations
