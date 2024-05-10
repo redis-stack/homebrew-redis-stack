@@ -29,8 +29,8 @@ jobs:
         run:
           redis-cli ping
 
-  arm-64:
-    name: Validate arm-64
+  arm64:
+    name: Validate arm64
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
