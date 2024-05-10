@@ -13,9 +13,9 @@ on:
 
 jobs:
 
-  intel:
-    name: Validate intel
-    runs-on: macos-latest
+  x86_64:
+    name: Validate x86_64
+    runs-on: macos-12
     steps:
       - uses: actions/checkout@v3
       - name: test in the installations
@@ -29,9 +29,9 @@ jobs:
         run:
           redis-cli ping
 
-  m1:
+  arm64:
     name: Validate arm64
-    runs-on: macos-14 # TODO: investigate why latest does not represent macos 14
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - name: test in the installations
