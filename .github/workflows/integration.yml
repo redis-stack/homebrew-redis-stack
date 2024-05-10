@@ -44,3 +44,20 @@ jobs:
       - name: try to redis-stack
         run:
           redis-cli ping
+
+
+  arm64-macos12:
+    name: Validate arm64-macos12
+    runs-on: macos-12
+    steps:
+      - uses: actions/checkout@v3
+      - name: test in the installations
+        run: |
+          brew install --cask Casks/redis-stack-server.rb
+          brew install --cask Casks/redis-stack-redisinsight.rb
+      - name: run redis-stack
+        run:
+          /opt/homebrew/bin/redis-stack-server -h &
+      - name: try to redis-stack
+        run:
+          redis-cli ping
