@@ -31,7 +31,7 @@ cask "redis-stack-server" do
     end
     binaries.each { |item|
       dest = "#{basepath}/bin/#{item}"
-      if File.exists?(dest)
+      if File.exist?(dest)
         if File.readlink(dest).include?("redis-stack")
           File.delete(dest)
         end
@@ -56,13 +56,13 @@ cask "redis-stack-server" do
     end
 
     confdir = "#{basepath}/etc"
-    if !Dir.exists?(confdir)
+    if !Dir.exist?(confdir)
       FileUtils.mkdir(confdir)
     end
 
     conffile = "#{confdir}/redis-stack.conf"
     src = "#{caskroom_path}/#{version}/etc/redis-stack.conf"
-    if !File.exists?(conffile)
+    if !File.exist?(conffile)
       FileUtils.cp(src, conffile)
     end
 
@@ -70,7 +70,7 @@ cask "redis-stack-server" do
     # link binaries
     binaries.each { |item|
       dest = "#{basepath}/bin/#{item}"
-      if !File.exists?(dest)
+      if !File.exist?(dest)
         File.symlink("#{caskbase}/bin/#{item}", dest)
       end
     }
