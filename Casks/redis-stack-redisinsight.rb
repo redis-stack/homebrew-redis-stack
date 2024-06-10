@@ -1,5 +1,5 @@
 cask "redis-stack-redisinsight" do
-  version "2.44.0"
+  version "2.50.0"
   name "RedisInsight"
   desc "A graphical tool for visualizing data and managing Redis databases"
   homepage "https://redis.com/redis-enterprise/redis-insight/"
@@ -16,7 +16,7 @@ cask "redis-stack-redisinsight" do
     end
   end
 
-  url "https://s3.amazonaws.com/redisinsight.download/public/releases/#{version}/redisstack/RedisInsight-app-#{baseos}.#{platform}.tar.gz"
+  url "https://s3.amazonaws.com/redisinsight.download/public/releases/#{version}/app/Redis-Insight-app-#{baseos}.#{platform}.tar.gz"
   app "RedisInsight.app"
 
   uninstall_preflight do
