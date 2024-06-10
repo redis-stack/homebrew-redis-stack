@@ -37,7 +37,7 @@ cask "redis-stack-redisinsight" do
     dest = "#{basepath}/redisinsight"
     File.open(dest, 'w+') { |f|
       f.write("#!/bin/sh\n\n")
-      f.write("open /Applications/RedisInsight.app\n")
+      f.write("open /Applications/Redis-Insight.app\n")
     }
     FileUtils.chmod(0755, dest)
   end
