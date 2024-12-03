@@ -15,9 +15,9 @@ jobs:
 
   x86_64:
     name: Validate x86_64
-    runs-on: macos-12
+    runs-on: macos-13
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: test in the installations
         run: |
           brew install --cask Casks/redis-stack-server.rb
@@ -33,7 +33,7 @@ jobs:
     name: Validate arm64
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: test in the installations
         run: |
           brew install --cask Casks/redis-stack-server.rb
