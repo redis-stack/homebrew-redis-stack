@@ -1,85 +1,61 @@
 cask "redis-stack-server" do
+  arch arm: "monterey.arm64", intel: "catalina.x86_64"
 
-  homepage "https://redis.io"
-  desc "Redis Stack Server install a Redis server with additional database capabilities"
   version "7.4.0-v1"
+  sha256 arm:   "7ed676fd099c53c187a066cc7c0b4479e110a1baa3b6d5cd39daedea3284160b",
+         intel: "e7058f3be5b8ff7baaaef64b5a4bf82e61f034634346fc712ebd11a883786d37"
 
-  baseos = 'darwin'
-  if RUBY_PLATFORM.index('darwin') != nil
-    is_x86 = RUBY_PLATFORM.index("x86")
-    if is_x86 != nil
-      platform = 'x86_64'
-      osnick = 'catalina'
-    else
-      platform = 'arm64'
-      osnick = 'monterey'
-    end
-  end
-
-  url "https://redismodules.s3.amazonaws.com/redis-stack/redis-stack-server-#{version}.#{osnick}.#{platform}.zip"
+  url "https://packages.redis.io/redis-stack/redis-stack-server-#{version}.#{arch}.zip"
+  desc "Installs a Redis server with additional database capabilities"
+  homepage "https://redis.io/"
 
   depends_on formula: "openssl@3"
   depends_on formula: "libomp"
 
-  binaries = ['redis-cli', 'redis-benchmark', 'redis-check-aof', 'redis-check-rdb', 'redis-sentinel', 'redis-server', 'redis-stack-server']
-
-  uninstall_postflight do
-    if RUBY_PLATFORM.index('x86') != nil
-      basepath = '/usr/local'
-    else
-      basepath = '/opt/homebrew'
-    end
-    binaries.each { |item|
-      dest = "#{basepath}/bin/#{item}"
-      if File.exist?(dest)
-        if File.readlink(dest).include?("redis-stack")
-          File.delete(dest)
-        end
-      end
-    }
-
-    # unlink libraries
-    caskbase = "#{caskroom_path}/#{version}"
-    Dir["#{caskbase}/lib/*.so"].each { |item|
-      lib = File.basename(item)
-      destlib = "#{basepath}/lib/#{lib}"
-      File.delete(destlib)
-    }
-
-  end
+  binaries = %w[redis-cli redis-benchmark redis-check-aof redis-check-rdb redis-sentinel redis-server
+                redis-stack-server]
 
   postflight do
-    if RUBY_PLATFORM.index('x86') != nil
-      basepath = '/usr/local'
-    else
-      basepath = '/opt/homebrew'
-    end
+    basepath = HOMEBREW_PREFIX.to_s
 
     confdir = "#{basepath}/etc"
-    if !Dir.exist?(confdir)
-      FileUtils.mkdir(confdir)
-    end
+
+    FileUtils.mkdir_p(confdir)
 
     conffile = "#{confdir}/redis-stack.conf"
     src = "#{caskroom_path}/#{version}/etc/redis-stack.conf"
-    if !File.exist?(conffile)
-      FileUtils.cp(src, conffile)
-    end
+    FileUtils.cp(src, conffile) unless File.exist?(conffile)
 
     caskbase = "#{caskroom_path}/#{version}"
     # link binaries
-    binaries.each { |item|
+    binaries.each do |item|
       dest = "#{basepath}/bin/#{item}"
-      if !File.exist?(dest)
-        File.symlink("#{caskbase}/bin/#{item}", dest)
-      end
-    }
+      File.symlink("#{caskbase}/bin/#{item}", dest) unless File.exist?(dest)
+    end
 
     # link libraries
-    Dir["#{caskbase}/lib/*.so"].each { |item|
+    Dir["#{caskbase}/lib/*.so"].each do |item|
       lib = File.basename(item)
       File.symlink(item, "#{basepath}/lib/#{lib}")
-    }
+    end
   end
 
+  uninstall_postflight do
+    basepath = HOMEBREW_PREFIX.to_s
+
+    binaries.each do |item|
+      dest = "#{basepath}/bin/#{item}"
+      next unless File.exist?(dest)
+
+      File.delete(dest) if File.readlink(dest).include?("redis-stack")
+    end
+
+    # unlink libraries
+    caskbase = "#{caskroom_path}/#{version}"
+    Dir["#{caskbase}/lib/*.so"].each do |item|
+      lib = File.basename(item)
+      destlib = "#{basepath}/lib/#{lib}"
+      File.delete(destlib)
+    end
+  end
 end
