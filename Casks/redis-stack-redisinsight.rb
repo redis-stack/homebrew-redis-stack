@@ -1,7 +1,7 @@
 cask "redis-stack-redisinsight" do
   arch arm: "arm64", intel: "x64"
 
-  version "2.58.0"
+  version "2.64.1"
   sha256 arm:   "2da08a97de6d7349622401a78b6323bca1a1f1c29079b91e937e9eaeec56f628",
          intel: "5adb0f72fe0f5751bfeb43783cf0655dc8645099685dc48d372d811b2946286f"
 
