@@ -2,8 +2,8 @@ cask "redis-stack-server" do
   arch arm: "sonoma.arm64", intel: "ventura.x86_64"
 
   version "7.4.0-v5"
-  sha256 arm:   "ece20e898579ad4ee2822be2a720db545335e2261ca0adaca12e5a6e5a4d6f4f",
-         intel: "444ab73c06e101bd106333d13f691eb6ffa32a440910bb6476712f49579c280f"
+  sha256 arm:   "bce6489df999f6f562e6c2d42a69211f4af700f672d61ae4847520ce846dcf78",
+         intel: "60157a0649b0fcf5c3d076d8e793901b08dd3699161baa84af2792d444b4de52"
 
   url "https://packages.redis.io/redis-stack/redis-stack-server-#{version}.#{arch}.zip"
   desc "Installs a Redis server with additional database capabilities"
