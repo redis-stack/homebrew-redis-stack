@@ -1,7 +1,7 @@
 cask "redis-stack-server" do
   arch arm: "sonoma.arm64", intel: "ventura.x86_64"
 
-  version "7.4.0-v5"
+  version "7.4.0-v6"
   sha256 arm:   "bce6489df999f6f562e6c2d42a69211f4af700f672d61ae4847520ce846dcf78",
          intel: "60157a0649b0fcf5c3d076d8e793901b08dd3699161baa84af2792d444b4de52"
 
