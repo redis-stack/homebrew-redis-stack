@@ -20,8 +20,11 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: test in the installations
         run: |
-          brew install --cask Casks/redis-stack-server.rb
-          brew install --cask Casks/redis-stack-redisinsight.rb
+          brew tap-new rs-local/rs-local
+          mkdir $(brew --repo rs-local/rs-local)/Casks
+          cp -r Casks/* $(brew --repo rs-local/rs-local)/Casks/
+          brew install --cask rs-local/rs-local/redis-stack-server.rb
+          brew install --cask rs-local/rs-local/redis-stack-redisinsight.rb
       - name: run redis-stack
         run:
           /usr/local/bin/redis-stack-server -h &
@@ -36,8 +39,11 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: test in the installations
         run: |
-          brew install --cask Casks/redis-stack-server.rb
-          brew install --cask Casks/redis-stack-redisinsight.rb
+          brew tap-new rs-local/rs-local
+          mkdir $(brew --repo rs-local/rs-local)/Casks
+          cp -r Casks/* $(brew --repo rs-local/rs-local)/Casks/
+          brew install --cask rs-local/rs-local/redis-stack-server.rb
+          brew install --cask rs-local/rs-local/redis-stack-redisinsight.rb
       - name: run redis-stack
         run:
           /opt/homebrew/bin/redis-stack-server -h &
