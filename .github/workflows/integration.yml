@@ -23,8 +23,8 @@ jobs:
           brew tap-new rs-local/rs-local
           mkdir $(brew --repo rs-local/rs-local)/Casks
           cp -r Casks/* $(brew --repo rs-local/rs-local)/Casks/
-          brew install --cask rs-local/rs-local/redis-stack-server.rb
-          brew install --cask rs-local/rs-local/redis-stack-redisinsight.rb
+          brew install --cask rs-local/rs-local/redis-stack-server
+          brew install --cask rs-local/rs-local/redis-stack-redisinsight
       - name: run redis-stack
         run:
           /usr/local/bin/redis-stack-server -h &
@@ -42,8 +42,8 @@ jobs:
           brew tap-new rs-local/rs-local
           mkdir $(brew --repo rs-local/rs-local)/Casks
           cp -r Casks/* $(brew --repo rs-local/rs-local)/Casks/
-          brew install --cask rs-local/rs-local/redis-stack-server.rb
-          brew install --cask rs-local/rs-local/redis-stack-redisinsight.rb
+          brew install --cask rs-local/rs-local/redis-stack-server
+          brew install --cask rs-local/rs-local/redis-stack-redisinsight
       - name: run redis-stack
         run:
           /opt/homebrew/bin/redis-stack-server -h &
