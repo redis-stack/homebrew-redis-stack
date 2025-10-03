@@ -2,8 +2,8 @@ cask "redis-stack-redisinsight" do
   arch arm: "arm64", intel: "x64"
 
   version "2.70.1"
-  sha256 arm:   "e4fc7221b3647de7431d4468c5006de295b91cdea8743e8a670e5cbbbe857d57",
-         intel: "62c63f3114d7bffaf0f6b40345ccbd5a28d5c6ff1f4ead9d328c5b798bfde6d3"
+  sha256 arm:   "b2e087db180c590efdb5c08fc4cba29009996a4c7e2e6bbf44ecc0c3373e2d67",
+         intel: "985008e5c465ad6c468ef40e5c85e2fe16cb77de990521e5ee4a0d62d7a672fc"
 
   url "https://s3.amazonaws.com/redisinsight.download/public/releases/#{version}/redisstack/Redis-Insight-app-darwin.#{arch}.tar.gz"
   name "RedisInsight"
