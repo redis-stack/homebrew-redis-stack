@@ -40,22 +40,22 @@ cask "redis-stack-server" do
     end
   end
 
-  uninstall_postflight do
-    basepath = HOMEBREW_PREFIX.to_s
+  uninstall_postflight_steps do
+    # Only remove a binary symlink if it actually points into the caskroom —
+    # mirrors the original File.readlink().include?("redis-stack") check.
+    # Paths use the {{HOMEBREW_PREFIX}} template (not Ruby interpolation),
+    # which the steps DSL substitutes at load time.
+    remove "{{HOMEBREW_PREFIX}}/bin/redis-cli",          symlink_target_contains: "redis-stack"
+    remove "{{HOMEBREW_PREFIX}}/bin/redis-benchmark",    symlink_target_contains: "redis-stack"
+    remove "{{HOMEBREW_PREFIX}}/bin/redis-check-aof",    symlink_target_contains: "redis-stack"
+    remove "{{HOMEBREW_PREFIX}}/bin/redis-check-rdb",    symlink_target_contains: "redis-stack"
+    remove "{{HOMEBREW_PREFIX}}/bin/redis-sentinel",     symlink_target_contains: "redis-stack"
+    remove "{{HOMEBREW_PREFIX}}/bin/redis-server",       symlink_target_contains: "redis-stack"
+    remove "{{HOMEBREW_PREFIX}}/bin/redis-stack-server", symlink_target_contains: "redis-stack"
 
-    binaries.each do |item|
-      dest = "#{basepath}/bin/#{item}"
-      next unless File.exist?(dest)
-
-      File.delete(dest) if File.readlink(dest).include?("redis-stack")
-    end
-
-    # unlink libraries
-    caskbase = "#{caskroom_path}/#{version}"
-    Dir["#{caskbase}/lib/*.so"].each do |item|
-      lib = File.basename(item)
-      destlib = "#{basepath}/lib/#{lib}"
-      File.delete(destlib)
-    end
+    # The postflight symlinks every .so from caskroom into {{HOMEBREW_PREFIX}}/lib.
+    # Only remove the symlinks whose target references redis-stack so any
+    # user-installed libraries at the same path are preserved.
+    remove "{{HOMEBREW_PREFIX}}/lib/*.so", symlink_target_contains: "redis-stack"
   end
 end
