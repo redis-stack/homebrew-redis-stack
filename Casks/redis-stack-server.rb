@@ -15,29 +15,40 @@ cask "redis-stack-server" do
   binaries = %w[redis-cli redis-benchmark redis-check-aof redis-check-rdb redis-sentinel redis-server
                 redis-stack-server]
 
-  postflight do
-    basepath = HOMEBREW_PREFIX.to_s
+  postflight_steps do
+    mkdir_p "{{HOMEBREW_PREFIX}}/etc"
 
-    confdir = "#{basepath}/etc"
-
-    FileUtils.mkdir_p(confdir)
-
-    conffile = "#{confdir}/redis-stack.conf"
-    src = "#{caskroom_path}/#{version}/etc/redis-stack.conf"
-    FileUtils.cp(src, conffile) unless File.exist?(conffile)
-
-    caskbase = "#{caskroom_path}/#{version}"
-    # link binaries
-    binaries.each do |item|
-      dest = "#{basepath}/bin/#{item}"
-      File.symlink("#{caskbase}/bin/#{item}", dest) unless File.exist?(dest)
+    # Seed the user-editable config on first install only — never overwrite
+    # an existing file (mirrors the original `unless File.exist?(conffile)`).
+    unless_path_exists "{{HOMEBREW_PREFIX}}/etc/redis-stack.conf" do
+      copy "{{caskroom_path}}/{{version}}/etc/redis-stack.conf",
+           "{{HOMEBREW_PREFIX}}/etc/redis-stack.conf"
     end
 
-    # link libraries
-    Dir["#{caskbase}/lib/*.so"].each do |item|
-      lib = File.basename(item)
-      File.symlink(item, "#{basepath}/lib/#{lib}")
-    end
+    # Link each binary from the caskroom into HOMEBREW_PREFIX/bin.
+    # `remove_on_uninstall: true` tells Homebrew to remove these symlinks
+    # automatically during uninstall, matching the original behavior.
+    symlink "{{caskroom_path}}/{{version}}/bin/redis-cli",
+            "{{HOMEBREW_PREFIX}}/bin/redis-cli", remove_on_uninstall: true
+    symlink "{{caskroom_path}}/{{version}}/bin/redis-benchmark",
+            "{{HOMEBREW_PREFIX}}/bin/redis-benchmark", remove_on_uninstall: true
+    symlink "{{caskroom_path}}/{{version}}/bin/redis-check-aof",
+            "{{HOMEBREW_PREFIX}}/bin/redis-check-aof", remove_on_uninstall: true
+    symlink "{{caskroom_path}}/{{version}}/bin/redis-check-rdb",
+            "{{HOMEBREW_PREFIX}}/bin/redis-check-rdb", remove_on_uninstall: true
+    symlink "{{caskroom_path}}/{{version}}/bin/redis-sentinel",
+            "{{HOMEBREW_PREFIX}}/bin/redis-sentinel", remove_on_uninstall: true
+    symlink "{{caskroom_path}}/{{version}}/bin/redis-server",
+            "{{HOMEBREW_PREFIX}}/bin/redis-server", remove_on_uninstall: true
+    symlink "{{caskroom_path}}/{{version}}/bin/redis-stack-server",
+            "{{HOMEBREW_PREFIX}}/bin/redis-stack-server", remove_on_uninstall: true
+
+    # Symlink every .so from the caskroom into HOMEBREW_PREFIX/lib.
+    # `source_glob: true` expands the glob and creates one symlink per match,
+    # replacing the original `Dir[".../*.so"].each` loop.
+    symlink "{{caskroom_path}}/{{version}}/lib/*.so",
+            "{{HOMEBREW_PREFIX}}/lib",
+            source_glob: true, remove_on_uninstall: true
   end
 
   uninstall_postflight do
