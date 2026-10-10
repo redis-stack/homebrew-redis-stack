@@ -12,50 +12,82 @@ cask "redis-stack-server" do
   depends_on formula: "openssl@3"
   depends_on formula: "libomp"
 
-  binaries = %w[redis-cli redis-benchmark redis-check-aof redis-check-rdb redis-sentinel redis-server
-                redis-stack-server]
+  postflight_steps do
+    mkdir_p "etc", base: :homebrew_prefix
+    mkdir_p "bin", base: :homebrew_prefix
+    mkdir_p "lib", base: :homebrew_prefix
 
-  postflight do
-    basepath = HOMEBREW_PREFIX.to_s
-
-    confdir = "#{basepath}/etc"
-
-    FileUtils.mkdir_p(confdir)
-
-    conffile = "#{confdir}/redis-stack.conf"
-    src = "#{caskroom_path}/#{version}/etc/redis-stack.conf"
-    FileUtils.cp(src, conffile) unless File.exist?(conffile)
-
-    caskbase = "#{caskroom_path}/#{version}"
-    # link binaries
-    binaries.each do |item|
-      dest = "#{basepath}/bin/#{item}"
-      File.symlink("#{caskbase}/bin/#{item}", dest) unless File.exist?(dest)
+    unless_path_exists "etc/redis-stack.conf", base: :homebrew_prefix do
+      copy "etc/redis-stack.conf", "etc/redis-stack.conf",
+           target_base: :homebrew_prefix,
+           overwrite:   false
     end
 
-    # link libraries
-    Dir["#{caskbase}/lib/*.so"].each do |item|
-      lib = File.basename(item)
-      File.symlink(item, "#{basepath}/lib/#{lib}")
-    end
-  end
-
-  uninstall_postflight do
-    basepath = HOMEBREW_PREFIX.to_s
-
-    binaries.each do |item|
-      dest = "#{basepath}/bin/#{item}"
-      next unless File.exist?(dest)
-
-      File.delete(dest) if File.readlink(dest).include?("redis-stack")
+    # Preserve the existing policy of skipping occupied executable paths.
+    unless_path_exists "bin/redis-cli", base: :homebrew_prefix do
+      symlink "bin/redis-cli", "bin/redis-cli",
+              target_base:         :homebrew_prefix,
+              remove_on_uninstall: true
     end
 
-    # unlink libraries
-    caskbase = "#{caskroom_path}/#{version}"
-    Dir["#{caskbase}/lib/*.so"].each do |item|
-      lib = File.basename(item)
-      destlib = "#{basepath}/lib/#{lib}"
-      File.delete(destlib)
+    unless_path_exists "bin/redis-benchmark", base: :homebrew_prefix do
+      symlink "bin/redis-benchmark", "bin/redis-benchmark",
+              target_base:         :homebrew_prefix,
+              remove_on_uninstall: true
     end
+
+    unless_path_exists "bin/redis-check-aof", base: :homebrew_prefix do
+      symlink "bin/redis-check-aof", "bin/redis-check-aof",
+              target_base:         :homebrew_prefix,
+              remove_on_uninstall: true
+    end
+
+    unless_path_exists "bin/redis-check-rdb", base: :homebrew_prefix do
+      symlink "bin/redis-check-rdb", "bin/redis-check-rdb",
+              target_base:         :homebrew_prefix,
+              remove_on_uninstall: true
+    end
+
+    unless_path_exists "bin/redis-sentinel", base: :homebrew_prefix do
+      symlink "bin/redis-sentinel", "bin/redis-sentinel",
+              target_base:         :homebrew_prefix,
+              remove_on_uninstall: true
+    end
+
+    unless_path_exists "bin/redis-server", base: :homebrew_prefix do
+      symlink "bin/redis-server", "bin/redis-server",
+              target_base:         :homebrew_prefix,
+              remove_on_uninstall: true
+    end
+
+    unless_path_exists "bin/redis-stack-server", base: :homebrew_prefix do
+      symlink "bin/redis-stack-server", "bin/redis-stack-server",
+              target_base:         :homebrew_prefix,
+              remove_on_uninstall: true
+    end
+
+    # Keep this list in sync with lib/*.so in both release archives.
+    # Explicit targets let Homebrew remove only matching links on uninstall.
+    symlink "lib/libredisgears_v8_plugin.so", "lib/libredisgears_v8_plugin.so",
+            target_base:         :homebrew_prefix,
+            remove_on_uninstall: true
+    symlink "lib/redisbloom.so", "lib/redisbloom.so",
+            target_base:         :homebrew_prefix,
+            remove_on_uninstall: true
+    symlink "lib/rediscompat.so", "lib/rediscompat.so",
+            target_base:         :homebrew_prefix,
+            remove_on_uninstall: true
+    symlink "lib/redisearch.so", "lib/redisearch.so",
+            target_base:         :homebrew_prefix,
+            remove_on_uninstall: true
+    symlink "lib/redisgears.so", "lib/redisgears.so",
+            target_base:         :homebrew_prefix,
+            remove_on_uninstall: true
+    symlink "lib/redistimeseries.so", "lib/redistimeseries.so",
+            target_base:         :homebrew_prefix,
+            remove_on_uninstall: true
+    symlink "lib/rejson.so", "lib/rejson.so",
+            target_base:         :homebrew_prefix,
+            remove_on_uninstall: true
   end
 end
